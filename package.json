@@ -42,6 +42,8 @@
   },
   "dependencies": {
     "@qwikest/icons": "^0.0.8",
-    "qwik-image": "^0.0.7"
+    "@unpic/qwik": "^0.0.25",
+    "qwik-image": "^0.0.7",
+    "tailwind-merge": "^1.14.0"
   }
 }

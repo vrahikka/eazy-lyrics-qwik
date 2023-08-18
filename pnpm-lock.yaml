@@ -8,9 +8,15 @@ dependencies:
   '@qwikest/icons':
     specifier: ^0.0.8
     version: 0.0.8(@builder.io/qwik@1.2.7)
+  '@unpic/qwik':
+    specifier: ^0.0.25
+    version: 0.0.25(@builder.io/qwik@1.2.7)
   qwik-image:
     specifier: ^0.0.7
     version: 0.0.7
+  tailwind-merge:
+    specifier: ^1.14.0
+    version: 1.14.0
 
 devDependencies:
   '@builder.io/qwik':
@@ -695,6 +701,15 @@ packages:
       '@typescript-eslint/types': 6.2.0
       eslint-visitor-keys: 3.4.3
     dev: true
+
+  /@unpic/qwik@0.0.25(@builder.io/qwik@1.2.7):
+    resolution: {integrity: sha512-8YvmmOwk7dWdtAlZFiNM+z7SWHJ/M6uoleVr8y82eeu2yxPvr5n8kUgG1MdXX+re0RBtumF1vfEe4GP2UJoFMg==}
+    engines: {node: '>=15.0.0'}
+    peerDependencies:
+      '@builder.io/qwik': '*'
+    dependencies:
+      '@builder.io/qwik': 1.2.7(undici@5.22.1)
+    dev: false
 
   /acorn-jsx@5.3.2(acorn@8.10.0):
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -3569,6 +3584,10 @@ packages:
       csso: 5.0.5
       picocolors: 1.0.0
     dev: true
+
+  /tailwind-merge@1.14.0:
+    resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
+    dev: false
 
   /tailwindcss@3.3.3:
     resolution: {integrity: sha512-A0KgSkef7eE4Mf+nKJ83i75TMyq8HqY3qmFIJSWy8bNt0v1lG7jUcpGpoTFxAwYcWOphcTBLPPJg+bDfhDf52w==}
