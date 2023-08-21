@@ -1,5 +1,5 @@
 import { component$, Slot } from '@builder.io/qwik';
-import { routeLoader$, useLocation } from '@builder.io/qwik-city';
+import { routeLoader$ } from '@builder.io/qwik-city';
 import type { RequestHandler } from '@builder.io/qwik-city';
 import { Background } from '~/components/Background/background';
 import { Footer } from '~/components/Footer/footer';
@@ -23,8 +23,6 @@ export const useServerTimeLoader = routeLoader$(() => {
 });
 
 export default component$(() => {
-  const location = useLocation();
-
   return (
     <>
       <Navigation />
