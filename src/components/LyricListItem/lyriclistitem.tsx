@@ -1,5 +1,4 @@
 import { component$ } from '@builder.io/qwik';
-import { Link } from '@builder.io/qwik-city';
 import { Image } from '@unpic/qwik';
 import { Favoritebutton } from '../FavoriteButton/favoritebutton';
 
@@ -22,8 +21,7 @@ export const Lyriclistitem = component$<LyricListItemProps>(
     refresh,
   }: LyricListItemProps) => {
     return (
-      <Link
-        prefetch={false}
+      <a
         class="grid w-full gap-4 p-2 rounded border border-gray bg-dark justify-between items-center min-w-0 hover:border-secondary"
         style={{
           gridTemplateAreas: '"thumbnail title favorite"',
@@ -67,7 +65,7 @@ export const Lyriclistitem = component$<LyricListItemProps>(
             refresh={refresh}
           />
         </div>
-      </Link>
+      </a>
     );
   },
 );
