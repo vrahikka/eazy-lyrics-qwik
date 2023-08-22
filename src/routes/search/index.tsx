@@ -26,9 +26,9 @@ export default component$(() => {
       <div class="flex flex-col items-center gap-8">
         <h2 class="text-center">{`Search hits for: ${searchString}`}</h2>
         {error ? (
-          <Error text={data.message} />
+          <Error text={data.errorMessage} />
         ) : (
-          <Searchresults hits={data?.hits ?? []} />
+          <Searchresults hits={data ?? []} />
         )}
       </div>
     </PageTemplate>

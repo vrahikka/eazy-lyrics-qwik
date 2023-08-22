@@ -1,161 +1,129 @@
-export interface SearchResult {
-  hits: SearchHit[];
-}
+import { z } from '@builder.io/qwik-city';
+
+const primaryArtistSchema = z.object({
+  api_path: z.string(),
+  header_image_url: z.string(),
+  id: z.number(),
+  image_url: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  url: z.string(),
+});
+
+export type PrimaryArtist = z.infer<typeof primaryArtistSchema>;
+
+const searchHitSchema = z.object({
+  api_path: z.string(),
+  artist_names: z.union([z.string(), z.array(z.string())]),
+  full_title: z.string(),
+  header_image_thumbnail_url: z.string(),
+  header_image_url: z.string(),
+  id: z.number(),
+  path: z.string(),
+  song_art_image_thumbnail_url: z.string(),
+  song_art_image_url: z.string(),
+  title: z.string(),
+  title_with_featured: z.string(),
+  url: z.string(),
+  primary_artist: primaryArtistSchema,
+});
+
+export type SearchHit = z.infer<typeof searchHitSchema>;
+
+export const searchResultSchema = z.object({
+  hits: z.array(
+    z.object({
+      result: searchHitSchema,
+    }),
+  ),
+});
 
 export type ErrorMessage = {
   statusCode?: number;
-  message: string;
+  errorMessage: string;
 };
 
-export interface SearchHit {
-  result: {
-    api_path: string;
-    artist_names: string | string[];
-    full_title: string;
-    header_image_thumbnail_url: string;
-    header_image_url: string;
-    id: number;
-    instrumental: false;
-    path: string;
-    song_art_image_thumbnail_url: string;
-    song_art_image_url: string;
-    title: string;
-    title_with_featured: string;
-    url: string;
-    primary_artist: {
-      api_path: string;
-      header_image_url: string;
-      id: number;
-      image_url: string;
-      name: string;
-      slug: string;
-      url: string;
-    };
-  };
-}
+export const songLyricSchema = z.object({
+  lyrics: z.object({
+    _type: z.string(),
+    api_path: z.string(),
+    lyrics: z.object({
+      body: z.object({
+        html: z.string(),
+      }),
+    }),
+    path: z.string(),
+    song_id: z.number(),
+    tracking_data: z.object({
+      song_id: z.number(),
+      title: z.string(),
+      primary_artist: z.string(),
+      primary_artist_id: z.number(),
+      primary_album: z.string(),
+      primary_album_id: z.number(),
+      release_date: z.string(),
+      has_youtube_url: z.boolean(),
+    }),
+  }),
+});
 
-export interface SongLyric {
-  lyrics: {
-    _type: string;
-    api_path: string;
-    lyrics: {
-      body: {
-        html: string;
-      };
-    };
-    path: string;
-    song_id: number;
-    tracking_data: {
-      song_id: number;
-      title: string;
-      primary_artist: string;
-      primary_artist_id: number;
-      primary_album: string;
-      primary_album_id: number;
-      release_date: string;
-      has_youtube_url: boolean;
-    };
-  };
-}
+export type SongLyric = z.infer<typeof songLyricSchema>;
 
-export interface ReleaseDate {
-  year: number;
-  month: number;
-  day: number;
-}
+export const releaseDateSchema = z.object({
+  year: z.number(),
+  month: z.number().min(1).max(12),
+  day: z.number().min(1).max(31),
+});
 
-export interface Album {
-  api_path: string;
-  cover_art_thumbnail_url: string;
-  cover_art_url: string;
-  full_title: string;
-  id: number;
-  name: string;
-  name_with_artist: string;
-  release_date_components: ReleaseDate;
-  release_date_for_display: string;
-  url: string;
-}
+export type ReleaseDate = z.infer<typeof releaseDateSchema>;
 
-interface Artist {
-  api_path: string;
-  header_image_url: string;
-  id: number;
-  image_url: string;
-  index_character: string;
-  is_meme_verified: boolean;
-  is_verified: boolean;
-  name: string;
-  slug: string;
-  url: string;
-  iq: number;
-}
+export const albumSchema = z.object({
+  api_path: z.string(),
+  cover_art_thumbnail_url: z.string(),
+  cover_art_url: z.string(),
+  full_title: z.string(),
+  id: z.number(),
+  name: z.string(),
+  name_with_artist: z.string(),
+  release_date_components: releaseDateSchema,
+  release_date_for_display: z.string(),
+  url: z.string(),
+});
 
-export interface SongDetails {
-  song: {
-    title: string;
-    album: Album;
-    primary_artist: Artist;
-    title_with_featured: string;
-    artist_names: string;
-    custom_header_image_url: string;
-    custom_song_art_image_url: string;
-    header_image_url: string;
-    header_image_thumbnail_url: string;
-    song_art_image_thumbnail_url: string;
-    song_art_image_url: string;
-    spotify_uuid: string;
-    description: {
-      html: string;
-      description_preview: string;
-    };
-    full_title: string;
-    id: number;
-    release_date_components: ReleaseDate;
-    youtube_url: string;
-  };
-}
+export const artistSchema = z.object({
+  api_path: z.string(),
+  header_image_url: z.string(),
+  id: z.number(),
+  image_url: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  url: z.string(),
+});
 
-// "highlights": [],
-// "index": "song",
-// "type": "song",
-// "result": {
-// "_type": "song",
-// "annotation_count": 13,
-// "api_path": "/songs/2396871",
-// "artist_names": "Alan Walker",
-// "full_title": "Faded by Alan Walker",
-// "header_image_thumbnail_url": "https://images.genius.com/10db94c5c11e1bb1ac9cc917a6c59250.300x300x1.jpg",
-// "header_image_url": "https://images.genius.com/10db94c5c11e1bb1ac9cc917a6c59250.1000x1000x1.jpg",
-// "id": 2396871,
-// "instrumental": false,
-// "lyrics_owner_id": 93685,
-// "lyrics_state": "complete",
-// "lyrics_updated_at": 1641110891,
-// "path": "/Alan-walker-faded-lyrics",
-// "pyongs_count": 114,
-// "song_art_image_thumbnail_url": "https://images.genius.com/708aef5551c9f670205b5cab3f38c8bd.300x300x1.jpg",
-// "song_art_image_url": "https://images.genius.com/708aef5551c9f670205b5cab3f38c8bd.1000x1000x1.jpg",
-// "stats": {
-// "unreviewed_annotations": 0,
-// "hot": false,
-// "pageviews": 1290638
-// },
-// "title": "Faded",
-// "title_with_featured": "Faded",
-// "updated_by_human_at": 1644264066,
-// "url": "https://genius.com/Alan-walker-faded-lyrics",
-// "primary_artist": {
-// "_type": "artist",
-// "api_path": "/artists/456537",
-// "header_image_url": "https://images.genius.com/5dc7f5c57981ba34e464414f7fc08ebf.1000x333x1.jpg",
-// "id": 456537,
-// "image_url": "https://images.genius.com/70b44d7b5a4be028e87b865dd425a4cc.1000x1000x1.jpg",
-// "index_character": "a",
-// "is_meme_verified": false,
-// "is_verified": true,
-// "name": "Alan Walker",
-// "slug": "Alan-walker",
-// "url": "https://genius.com/artists/Alan-walker",
-// "iq": 3463
-// }
+export const songDetailsSchema = z.object({
+  song: z.object({
+    title: z.string(),
+    album: albumSchema,
+    primary_artist: artistSchema,
+    title_with_featured: z.string(),
+    artist_names: z.string(),
+    custom_header_image_url: z.string(),
+    custom_song_art_image_url: z.string(),
+    header_image_url: z.string(),
+    header_image_thumbnail_url: z.string(),
+    song_art_image_thumbnail_url: z.string(),
+    song_art_image_url: z.string(),
+    spotify_uuid: z.string(),
+    description: z.object({
+      html: z.string(),
+    }),
+    description_preview: z.string(),
+    full_title: z.string(),
+    id: z.number(),
+    release_date_components: releaseDateSchema,
+    youtube_url: z.string(),
+  }),
+});
+
+// If desired, derive the TypeScript type from the Zod schema
+export type SongDetails = z.infer<typeof songDetailsSchema>;

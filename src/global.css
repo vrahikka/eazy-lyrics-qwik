@@ -71,6 +71,10 @@ h2 {
   line-height: 2.25rem /* 36px */;
 }
 
+h3 {
+  font-size: 1.25rem /* 24px */;
+}
+
 .loader {
   border-top-color: #ff397f;
   -webkit-animation: spinner 1s linear infinite;

@@ -25,9 +25,19 @@ export default component$(() => {
 
   const { lyricData, details } = useSongData().value;
 
-  let error = false;
-  if (isError(lyricData) || isError(details) || !lyricData || !details) {
-    return <Error text="Something went wrong while fetching data" />;
+  if (isError(lyricData) || isError(details)) {
+    let errorMessage = '';
+    if (isError(lyricData)) {
+      errorMessage = lyricData.errorMessage;
+    }
+    if (isError(lyricData) && isError(details)) {
+      errorMessage += ' and ';
+    }
+    if (isError(details)) {
+      errorMessage += details.errorMessage;
+    }
+
+    return <Error text={errorMessage} />;
   }
 
   return (
@@ -41,40 +51,40 @@ export default component$(() => {
       >
         <div class="flex flex-col items-center" style={{ gridArea: 'lyric' }}>
           <div class="flex items-center">
-            <h2 class="text-center">
-              {lyricData?.lyrics?.tracking_data.title}
-            </h2>
+            <h2 class="text-center">{lyricData?.lyrics.tracking_data.title}</h2>
             <Favoritebutton
               id={+id}
-              artist={details?.song?.primary_artist.name ?? ''}
-              title={details?.song?.title ?? ''}
-              thumbnailUrl={details?.song?.song_art_image_thumbnail_url ?? ''}
+              artist={details.song.primary_artist.name ?? ''}
+              title={details.song.title ?? ''}
+              thumbnailUrl={details.song.song_art_image_thumbnail_url ?? ''}
             />
           </div>
           <div class="md:hidden">
             <Infobox
-              album={details?.song?.album.name ?? ''}
-              artist={details?.song?.primary_artist.name ?? ''}
-              imageUrl={details?.song?.song_art_image_url ?? ''}
+              album={details.song.album.name ?? ''}
+              artist={details.song.primary_artist.name ?? ''}
+              imageUrl={details.song.song_art_image_url ?? ''}
               releaseDate={getReleaseDateString(
-                details?.song?.release_date_components,
+                details.song.release_date_components,
               )}
-              title={details?.song?.title ?? ''}
-              youtubeUrl={details?.song?.youtube_url}
+              title={details.song.title ?? ''}
+              youtubeUrl={details.song.youtube_url}
+              description={details.song.description_preview}
             />
           </div>
-          <Lyric htmlText={lyricData?.lyrics?.lyrics.body.html ?? ''} />
+          <Lyric htmlText={lyricData.lyrics.lyrics.body.html ?? ''} />
         </div>
         <div class="hidden md:flex">
           <Infobox
-            album={details?.song?.album.name ?? ''}
-            artist={details?.song?.primary_artist.name ?? ''}
-            imageUrl={details?.song?.song_art_image_url ?? ''}
+            album={details.song.album.name ?? ''}
+            artist={details.song.primary_artist.name ?? ''}
+            imageUrl={details.song.song_art_image_url ?? ''}
             releaseDate={getReleaseDateString(
-              details?.song?.release_date_components,
+              details.song.release_date_components,
             )}
-            title={details?.song?.title ?? ''}
-            youtubeUrl={details?.song?.youtube_url}
+            title={details.song.title ?? ''}
+            youtubeUrl={details.song.youtube_url}
+            description={details.song.description_preview}
           />
         </div>
       </div>

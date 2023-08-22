@@ -7,7 +7,7 @@ export interface ErrorProps {
 export const Error = component$<ErrorProps>(({ text }) => {
   return (
     <div class="flex-col text-center">
-      <p>{text}</p>
+      <h3>Error: {text} 😔</h3>
     </div>
   );
 });

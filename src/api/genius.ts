@@ -1,4 +1,13 @@
-import { ErrorMessage, SearchResult, SongDetails, SongLyric } from '~/types';
+import { z } from '@builder.io/qwik-city';
+import {
+  ErrorMessage,
+  SearchHit,
+  SongDetails,
+  SongLyric,
+  searchResultSchema,
+  songDetailsSchema,
+  songLyricSchema,
+} from '~/types';
 
 const { API_KEY } = process.env;
 
@@ -9,9 +18,9 @@ const headers = {
 
 export const search = async (
   searchString: string,
-): Promise<SearchResult | ErrorMessage | null> => {
+): Promise<SearchHit[] | ErrorMessage> => {
   if (!searchString) {
-    return null;
+    return { errorMessage: 'Empty search parameter' };
   }
   const url = `https://genius-song-lyrics1.p.rapidapi.com/search/?q=${searchString}&per_page=20`; // 20 seems to be the max
   const options = {
@@ -21,25 +30,34 @@ export const search = async (
 
   try {
     const response = await fetch(url, options);
+    const result = await response.json();
 
-    const result: SearchResult | ErrorMessage = await response.json();
     if (response.status !== 200) {
       const error = result as ErrorMessage;
-      console.error(error.message);
+      console.error(error.errorMessage);
       return error;
     }
-    return result;
+
+    try {
+      // Validate data
+      const data = searchResultSchema.parse(result);
+      const resultData = data.hits.map((hit) => hit.result);
+      return resultData;
+    } catch (error) {
+      console.error((error as z.ZodError).message);
+      return { errorMessage: 'Received data did not match schema' };
+    }
   } catch (error) {
     console.error(error);
-    throw error;
+    return { errorMessage: 'Fetching failed' };
   }
 };
 
 export const songLyric = async (
   id: number,
-): Promise<SongLyric | ErrorMessage | null> => {
+): Promise<SongLyric | ErrorMessage> => {
   if (!id) {
-    return null;
+    return { errorMessage: 'Empty search parameter' };
   }
   const url = `https://genius-song-lyrics1.p.rapidapi.com/song/lyrics/?id=${id}`;
   const options = {
@@ -49,26 +67,33 @@ export const songLyric = async (
 
   try {
     const response = await fetch(url, options);
-    const result: SongLyric | ErrorMessage = await response.json();
+    const result = await response.json();
 
     if (response.status !== 200) {
       const error = result as ErrorMessage;
-      console.error(error.message);
+      console.error(error.errorMessage);
       return error;
     }
 
-    return result;
+    try {
+      // Validate data
+      const data = songLyricSchema.parse(result);
+      return data;
+    } catch (error) {
+      console.error((error as z.ZodError).message);
+      return { errorMessage: 'Received data did not match schema' };
+    }
   } catch (error) {
     console.error(error);
-    throw error;
+    return { errorMessage: 'Fetching failed' };
   }
 };
 
 export const songDetails = async (
   id: number,
-): Promise<SongDetails | ErrorMessage | null> => {
+): Promise<SongDetails | ErrorMessage> => {
   if (!id) {
-    return null;
+    return { errorMessage: 'Empty search parameter' };
   }
   const url = `https://genius-song-lyrics1.p.rapidapi.com/song/details/?id=${id}`;
   const options = {
@@ -82,13 +107,20 @@ export const songDetails = async (
 
     if (response.status !== 200) {
       const error = result as ErrorMessage;
-      console.error(error.message);
+      console.error(error.errorMessage);
       return { ...error };
     }
-
-    return result;
+    try {
+      // Validate data
+      console.log(result);
+      const data = songDetailsSchema.parse(result);
+      return data;
+    } catch (error) {
+      console.error((error as z.ZodError).message);
+      return { errorMessage: 'Received data did not match schema' };
+    }
   } catch (error) {
     console.error(error);
-    throw error;
+    return { errorMessage: 'Fetching failed' };
   }
 };

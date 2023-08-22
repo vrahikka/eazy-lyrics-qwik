@@ -11,11 +11,11 @@ export const Searchresults = component$<SearchresultsProps>(({ hits }) => {
     <ul class="flex w-full flex-col gap-2">
       {hits.map((hit) => (
         <Lyriclistitem
-          key={hit.result.id}
-          id={hit.result.id}
-          artistName={hit.result.primary_artist.name}
-          thumbnailUrl={hit.result.song_art_image_thumbnail_url}
-          title={hit.result.title}
+          key={hit.id}
+          id={hit.id}
+          artistName={hit.primary_artist.name}
+          thumbnailUrl={hit.song_art_image_thumbnail_url}
+          title={hit.title}
         />
       ))}
     </ul>
