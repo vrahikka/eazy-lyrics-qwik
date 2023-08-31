@@ -1,5 +1,6 @@
 import { component$, useSignal, $ } from '@builder.io/qwik';
 import { Form, useLocation, useNavigate } from '@builder.io/qwik-city';
+import { setRecentSearch } from '~/localStorage';
 
 export const Search = component$(() => {
   const inputValue = useSignal('');
@@ -12,7 +13,7 @@ export const Search = component$(() => {
         inputValue.value !== location.url.searchParams.get('search')) ||
       ''
     ) {
-      // setRecentSearch(inputValue);
+      setRecentSearch(inputValue.value);
       console.log(inputValue.value);
       await nav(`/search?search=${inputValue.value}`);
     }
