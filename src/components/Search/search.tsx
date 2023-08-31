@@ -9,9 +9,8 @@ export const Search = component$(() => {
 
   const onSearch = $(async () => {
     if (
-      (inputValue &&
-        inputValue.value !== location.url.searchParams.get('search')) ||
-      ''
+      inputValue.value &&
+      inputValue.value !== location.url.searchParams.get('search')
     ) {
       setRecentSearch(inputValue.value);
       await nav(`/search?search=${inputValue.value}`);
