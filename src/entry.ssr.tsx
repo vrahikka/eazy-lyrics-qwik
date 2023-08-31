@@ -10,12 +10,32 @@
  * - npm run build
  *
  */
+
+// TEMPORARY FIX TO SUPPRESS WARNINGS WHEN USING ICONS
+// entry.ssr.tsx
+import { isDev } from '@builder.io/qwik/build';
+
+if (isDev) {
+  const consoleWarn = console.warn;
+  const SUPPRESSED_WARNINGS = ['Duplicate implementations of "JSXNode" found'];
+
+  console.warn = function filterWarnings(msg, ...args) {
+    if (
+      !SUPPRESSED_WARNINGS.some(
+        (entry) =>
+          msg.includes(entry) || args.some((arg) => arg.includes(entry)),
+      )
+    )
+      consoleWarn(msg, ...args);
+  };
+}
+
 import {
   renderToStream,
   type RenderToStreamOptions,
-} from "@builder.io/qwik/server";
-import { manifest } from "@qwik-client-manifest";
-import Root from "./root";
+} from '@builder.io/qwik/server';
+import { manifest } from '@qwik-client-manifest';
+import Root from './root';
 
 export default function (opts: RenderToStreamOptions) {
   return renderToStream(<Root />, {
@@ -23,7 +43,7 @@ export default function (opts: RenderToStreamOptions) {
     ...opts,
     // Use container attributes to set attributes on the html tag.
     containerAttributes: {
-      lang: "en-us",
+      lang: 'en-us',
       ...opts.containerAttributes,
     },
   });
