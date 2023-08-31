@@ -17,7 +17,6 @@ export const Recentchip = component$<RecentchipProps>((props) => {
   });
 
   const onCloseClick = $(async () => {
-    console.log('DELETE');
     deleteRecentSearch(props.value);
     nav();
   });

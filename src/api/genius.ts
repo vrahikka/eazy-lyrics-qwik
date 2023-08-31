@@ -112,7 +112,7 @@ export const songDetails = async (
     }
     try {
       // Validate data
-      console.log(result);
+      // console.log(result);
       const data = songDetailsSchema.parse(result);
       return data;
     } catch (error) {

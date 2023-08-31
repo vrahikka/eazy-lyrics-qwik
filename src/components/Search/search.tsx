@@ -8,14 +8,12 @@ export const Search = component$(() => {
   const location = useLocation();
 
   const onSearch = $(async () => {
-    console.log('searching', inputValue.value);
     if (
       (inputValue &&
         inputValue.value !== location.url.searchParams.get('search')) ||
       ''
     ) {
       setRecentSearch(inputValue.value);
-      console.log('Search input', inputValue.value);
       await nav(`/search?search=${inputValue.value}`);
     }
   });

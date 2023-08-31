@@ -8,7 +8,6 @@ export const Recentchips = component$(() => {
   const editOn = useSignal(false);
 
   useVisibleTask$(async () => {
-    console.log('useVisibleTask');
     recentSearches.value = getRecentSearches();
   });
 
