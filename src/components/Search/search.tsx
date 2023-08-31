@@ -8,21 +8,23 @@ export const Search = component$(() => {
   const location = useLocation();
 
   const onSearch = $(async () => {
+    console.log('searching', inputValue.value);
     if (
       (inputValue &&
         inputValue.value !== location.url.searchParams.get('search')) ||
       ''
     ) {
       setRecentSearch(inputValue.value);
-      console.log(inputValue.value);
+      console.log('Search input', inputValue.value);
       await nav(`/search?search=${inputValue.value}`);
     }
   });
 
   return (
-    <Form
+    <form
       class="flex justify-center gap-4 w-full flex-basis-[38rem] md:max-w-[38rem] [grid-area:search]"
       onSubmit$={onSearch}
+      preventdefault:submit
     >
       <label class="flex flex-col flex-grow justify-center w-full">
         <input
@@ -40,6 +42,6 @@ export const Search = component$(() => {
         value="Search"
         class="p-2 rounded ring-1 ring-primary hover:cursor-pointer hover:ring-secondary"
       />
-    </Form>
+    </form>
   );
 });
