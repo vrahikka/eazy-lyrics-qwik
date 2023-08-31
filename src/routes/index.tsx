@@ -7,7 +7,6 @@ export default component$(() => {
     <PageTemplate>
       <main class="flex flex-col items-center gap-8 md:gap-16 w-full">
         {/* <RecentChips /> */}
-        {/* <Favorites /> */}
       </main>
     </PageTemplate>
   );

@@ -2,7 +2,6 @@ import { component$ } from '@builder.io/qwik';
 import { routeLoader$, useLocation } from '@builder.io/qwik-city';
 import { songDetails, songLyric } from '~/api/genius';
 import { Error } from '~/components/Error/error';
-import { Favoritebutton } from '~/components/FavoriteButton/favoritebutton';
 import { Infobox } from '~/components/InfoBox/infobox';
 import { Lyric } from '~/components/Lyric/lyric';
 import { PageTemplate } from '~/components/PageTemplate/pagetemplate';
@@ -20,9 +19,6 @@ export const useSongData = routeLoader$(async (requestEvent) => {
 });
 
 export default component$(() => {
-  const loc = useLocation();
-  const id = loc.params.id;
-
   const { lyricData, details } = useSongData().value;
 
   if (isError(lyricData) || isError(details)) {
@@ -52,12 +48,6 @@ export default component$(() => {
         <div class="flex flex-col items-center" style={{ gridArea: 'lyric' }}>
           <div class="flex items-center">
             <h2 class="text-center">{lyricData?.lyrics.tracking_data.title}</h2>
-            <Favoritebutton
-              id={+id}
-              artist={details.song.primary_artist.name ?? ''}
-              title={details.song.title ?? ''}
-              thumbnailUrl={details.song.song_art_image_thumbnail_url ?? ''}
-            />
           </div>
           <div class="md:hidden">
             <Infobox
@@ -69,7 +59,8 @@ export default component$(() => {
               )}
               title={details.song.title ?? ''}
               youtubeUrl={details.song.youtube_url}
-              description={details.song.description_preview}
+              spotifyUUID={details.song.spotify_uuid}
+              soundcloudUrl={details.song.soundcloud_url}
             />
           </div>
           <Lyric htmlText={lyricData.lyrics.lyrics.body.html ?? ''} />
@@ -84,7 +75,8 @@ export default component$(() => {
             )}
             title={details.song.title ?? ''}
             youtubeUrl={details.song.youtube_url}
-            description={details.song.description_preview}
+            spotifyUUID={details.song.spotify_uuid}
+            soundcloudUrl={details.song.soundcloud_url}
           />
         </div>
       </div>

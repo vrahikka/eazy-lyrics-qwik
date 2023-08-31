@@ -1,5 +1,6 @@
 import { component$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
+import { BsEnvelope, BsLinkedin } from '@qwikest/icons/bootstrap';
 
 export interface FooterProps {}
 
@@ -14,7 +15,7 @@ export const Footer = component$<FooterProps>((props) => {
         WebkitBackdropFilter: 'blur(30px)',
       }}
     >
-      <div class="flex gap-4">
+      <div class="flex gap-4 items-center">
         <a
           href="http://www.linkedin.com/in/ville-rahikka-728707b1"
           target="_blank"
@@ -22,14 +23,14 @@ export const Footer = component$<FooterProps>((props) => {
           class="text-gray"
           aria-label="Mail"
         >
-          LinkedIn
+          <BsLinkedin class="fill-white h-5 w-5" />
         </a>
         <a
           href="mailto:ville.a.rahikka@gmail.com"
           class="text-gray"
           aria-label="Contact"
         >
-          Mail
+          <BsEnvelope class="fill-white h-5 w-5" />
         </a>
       </div>
       <div class="flex gap-4">

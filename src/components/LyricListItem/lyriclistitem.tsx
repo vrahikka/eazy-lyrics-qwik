@@ -1,6 +1,5 @@
 import { component$ } from '@builder.io/qwik';
 import { Image } from '@unpic/qwik';
-import { Favoritebutton } from '../FavoriteButton/favoritebutton';
 
 export interface LyricListItemProps {
   id: number;
@@ -12,14 +11,7 @@ export interface LyricListItemProps {
 }
 
 export const Lyriclistitem = component$<LyricListItemProps>(
-  ({
-    id,
-    thumbnailUrl,
-    title,
-    artistName,
-    initialFavoriteState,
-    refresh,
-  }: LyricListItemProps) => {
+  ({ id, thumbnailUrl, title, artistName }: LyricListItemProps) => {
     return (
       <a
         class="grid w-full gap-4 p-2 rounded border border-gray bg-dark justify-between items-center min-w-0 hover:border-secondary"
@@ -54,16 +46,6 @@ export const Lyriclistitem = component$<LyricListItemProps>(
           <p class="text-lightGray whitespace-nowrap overflow-hidden min-w-0 text-ellipsis">
             {artistName}
           </p>
-        </div>
-        <div class="flex" style={{ gridArea: 'favorite' }}>
-          <Favoritebutton
-            id={id}
-            title={title}
-            artist={artistName}
-            thumbnailUrl={thumbnailUrl}
-            initialFavoriteState={!!initialFavoriteState}
-            refresh={refresh}
-          />
         </div>
       </a>
     );

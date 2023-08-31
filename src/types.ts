@@ -113,7 +113,9 @@ export const songDetailsSchema = z.object({
     header_image_thumbnail_url: z.string(),
     song_art_image_thumbnail_url: z.string(),
     song_art_image_url: z.string(),
-    spotify_uuid: z.string(),
+    spotify_uuid: z.optional(z.union([z.string(), z.null()])),
+    soundcloud_url: z.optional(z.union([z.string(), z.null()])),
+    youtube_url: z.optional(z.union([z.string(), z.null()])),
     description: z.object({
       html: z.string(),
     }),
@@ -121,7 +123,6 @@ export const songDetailsSchema = z.object({
     full_title: z.string(),
     id: z.number(),
     release_date_components: releaseDateSchema,
-    youtube_url: z.string(),
   }),
 });
 
