@@ -11,9 +11,10 @@ import { getReleaseDateString } from '~/utils';
 export const useSongData = routeLoader$(async (requestEvent) => {
   // This code runs only on the server, after every navigation
   const songId = requestEvent.params.id;
+  const apiKey = requestEvent.env.get('API_KEY') ?? '';
 
-  const lyricData = await songLyric(+songId);
-  const details = await songDetails(+songId);
+  const lyricData = await songLyric(+songId, apiKey);
+  const details = await songDetails(+songId, apiKey);
 
   return { lyricData, details };
 });

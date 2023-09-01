@@ -6,16 +6,15 @@ import {
   songLyricSchema,
 } from '~/types';
 
-const { API_KEY } = process.env;
-
-const headers = {
-  'X-RapidAPI-Key': API_KEY ?? '',
-  'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com',
-};
-
 export const search = async (
   searchString: string,
+  apiKey: string,
 ): Promise<SearchHit[] | ErrorMessage> => {
+  const headers = {
+    'X-RapidAPI-Key': apiKey,
+    'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com',
+  };
+
   if (!searchString) {
     return { errorMessage: 'Empty search parameter' };
   }
@@ -58,7 +57,13 @@ export const search = async (
 
 export const songLyric = async (
   id: number,
+  apiKey: string,
 ): Promise<SongLyric | ErrorMessage> => {
+  const headers = {
+    'X-RapidAPI-Key': apiKey,
+    'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com',
+  };
+
   if (!id) {
     return { errorMessage: 'Empty search parameter' };
   }
@@ -94,7 +99,13 @@ export const songLyric = async (
 
 export const songDetails = async (
   id: number,
+  apiKey: string,
 ): Promise<SongDetails | ErrorMessage> => {
+  const headers = {
+    'X-RapidAPI-Key': apiKey,
+    'X-RapidAPI-Host': 'genius-song-lyrics1.p.rapidapi.com',
+  };
+
   if (!id) {
     return { errorMessage: 'Empty search parameter' };
   }

@@ -7,9 +7,10 @@ import { Searchresults } from '~/components/SearchResults/searchresults';
 import { isError } from '~/guards';
 
 export const useSongSearch = routeLoader$(async (requestEvent) => {
+  const apiKey = requestEvent.env.get('API_KEY') ?? '';
   // This code runs only on the server, after every navigation
   const songId = requestEvent.query.get('search') ?? '';
-  const res = await search(songId);
+  const res = await search(songId, apiKey);
   return res;
 });
 
