@@ -1,7 +1,7 @@
-import { Image } from '@unpic/qwik';
 import { component$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
 import { Search } from '../Search/search';
+import LogoImage from '~/images/logo.png?jsx';
 
 export const Navigation = component$(() => {
   return (
@@ -22,13 +22,11 @@ export const Navigation = component$(() => {
         aria-label="Home"
       >
         <div class="flex items-center gap-4 uppercase">
-          <Image
+          <LogoImage
             class="w-auto h-[50px]"
-            src="/images/logo.png"
-            layout="constraint"
-            width="448"
-            height="124"
-            alt="Background"
+            alt="Logo"
+            loading="eager"
+            decoding="sync"
           />
         </div>
       </Link>
