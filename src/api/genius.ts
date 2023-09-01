@@ -27,9 +27,7 @@ export const search = async (
   try {
     const response = await fetch(url, options);
     const result = await response.json();
-    console.log('1');
     if (response.status !== 200) {
-      console.log({ result });
       const error = { errorMessage: result.message } as ErrorMessage;
       console.error(error.errorMessage);
       return error;
@@ -37,19 +35,14 @@ export const search = async (
 
     try {
       // Validate data
-      console.log('3');
       const data = searchResultSchema.parse(result);
-      console.log('Data', data);
       const resultData = data.hits.map((hit) => hit.result);
-      console.log('4');
       return resultData;
     } catch (error) {
-      console.log('5');
       console.error((error as z.ZodError).message);
       return { errorMessage: 'Received data did not match schema' };
     }
   } catch (error) {
-    console.log('6');
     console.error(error);
     return { errorMessage: 'Fetching failed' };
   }
