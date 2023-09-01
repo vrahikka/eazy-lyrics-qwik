@@ -52,7 +52,7 @@ export default component$(() => {
       >
         <div class="flex flex-col items-center" style={{ gridArea: 'lyric' }}>
           <div class="flex items-center">
-            <h2 class="text-center">{lyricData?.lyrics.tracking_data.title}</h2>
+            <h2 class="text-center">{details.song.title}</h2>
           </div>
           <div class="md:hidden">
             <Infobox

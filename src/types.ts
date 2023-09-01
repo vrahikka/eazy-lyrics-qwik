@@ -1,31 +1,21 @@
 import { z } from '@builder.io/qwik-city';
 
 const primaryArtistSchema = z.object({
-  api_path: z.string(),
-  header_image_url: z.string(),
-  id: z.number(),
   image_url: z.string(),
   name: z.string(),
-  slug: z.string(),
-  url: z.string(),
 });
 
 export type PrimaryArtist = z.infer<typeof primaryArtistSchema>;
 
 const searchHitSchema = z.object({
-  api_path: z.string(),
-  artist_names: z.union([z.string(), z.array(z.string())]),
-  full_title: z.string(),
-  header_image_thumbnail_url: z.string(),
-  header_image_url: z.string(),
   id: z.number(),
-  path: z.string(),
-  song_art_image_thumbnail_url: z.string(),
-  song_art_image_url: z.string(),
-  title: z.string(),
-  title_with_featured: z.string(),
-  url: z.string(),
   primary_artist: primaryArtistSchema,
+  full_title: z.string(),
+  header_image_thumbnail_url: z.union([z.string(), z.null()]),
+  header_image_url: z.union([z.string(), z.null()]),
+  song_art_image_thumbnail_url: z.string(),
+  song_art_image_url: z.union([z.string(), z.null()]),
+  title: z.string(),
 });
 
 export type SearchHit = z.infer<typeof searchHitSchema>;
@@ -52,52 +42,40 @@ export const songLyricSchema = z.object({
         html: z.string(),
       }),
     }),
-    path: z.string(),
-    song_id: z.number(),
-    tracking_data: z.object({
-      song_id: z.number(),
-      title: z.string(),
-      primary_artist: z.string(),
-      primary_artist_id: z.number(),
-      primary_album: z.string(),
-      primary_album_id: z.number(),
-      release_date: z.string(),
-      has_youtube_url: z.boolean(),
-    }),
   }),
 });
 
 export type SongLyric = z.infer<typeof songLyricSchema>;
 
 export const releaseDateSchema = z.object({
-  year: z.number(),
-  month: z.number().min(1).max(12),
-  day: z.number().min(1).max(31),
+  year: z.union([z.number(), z.null()]),
+  month: z.union([z.number().min(1).max(12), z.null()]),
+  day: z.union([z.number().min(1).max(31), z.null()]),
 });
 
 export type ReleaseDate = z.infer<typeof releaseDateSchema>;
 
 export const albumSchema = z.object({
-  api_path: z.string(),
-  cover_art_thumbnail_url: z.string(),
-  cover_art_url: z.string(),
-  full_title: z.string(),
+  api_path: z.union([z.string(), z.null()]),
+  cover_art_thumbnail_url: z.union([z.string(), z.null()]),
+  cover_art_url: z.union([z.string(), z.null()]),
+  full_title: z.union([z.string(), z.null()]),
   id: z.number(),
   name: z.string(),
-  name_with_artist: z.string(),
+  name_with_artist: z.union([z.string(), z.null()]),
   release_date_components: releaseDateSchema,
-  release_date_for_display: z.string(),
-  url: z.string(),
+  release_date_for_display: z.union([z.string(), z.null()]),
+  url: z.union([z.string(), z.null()]),
 });
 
 export const artistSchema = z.object({
   api_path: z.string(),
-  header_image_url: z.string(),
+  header_image_url: z.union([z.string(), z.null()]),
   id: z.number(),
-  image_url: z.string(),
+  image_url: z.union([z.string(), z.null()]),
   name: z.string(),
-  slug: z.string(),
-  url: z.string(),
+  slug: z.union([z.string(), z.null()]),
+  url: z.union([z.string(), z.null()]),
 });
 
 export const songDetailsSchema = z.object({
@@ -105,8 +83,6 @@ export const songDetailsSchema = z.object({
     title: z.string(),
     album: albumSchema,
     primary_artist: artistSchema,
-    title_with_featured: z.string(),
-    artist_names: z.string(),
     custom_header_image_url: z.union([z.string(), z.null()]),
     custom_song_art_image_url: z.union([z.string(), z.null()]),
     header_image_url: z.union([z.string(), z.null()]),
@@ -117,9 +93,9 @@ export const songDetailsSchema = z.object({
     soundcloud_url: z.optional(z.union([z.string(), z.null()])),
     youtube_url: z.optional(z.union([z.string(), z.null()])),
     description: z.object({
-      html: z.string(),
+      html: z.union([z.string(), z.null()]),
     }),
-    description_preview: z.string(),
+    description_preview: z.union([z.string(), z.null()]),
     full_title: z.string(),
     id: z.number(),
     release_date_components: releaseDateSchema,
