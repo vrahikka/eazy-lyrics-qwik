@@ -1,9 +1,6 @@
-import { z } from '@builder.io/qwik-city';
+import type { z } from '@builder.io/qwik-city';
+import type { ErrorMessage, SearchHit, SongDetails, SongLyric } from '~/types';
 import {
-  ErrorMessage,
-  SearchHit,
-  SongDetails,
-  SongLyric,
   searchResultSchema,
   songDetailsSchema,
   songLyricSchema,

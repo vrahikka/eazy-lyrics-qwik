@@ -1,8 +1,7 @@
+import { Image } from '@unpic/qwik';
 import { component$ } from '@builder.io/qwik';
 import { Link } from '@builder.io/qwik-city';
-import { Logo } from '../Logo/logo';
 import { Search } from '../Search/search';
-import { Image } from '@unpic/qwik';
 
 export const Navigation = component$(() => {
   return (

@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { IconProps } from '../types';
+import type { IconProps } from '../types';
 
 export const Externallink = component$<IconProps>((props) => {
   return (

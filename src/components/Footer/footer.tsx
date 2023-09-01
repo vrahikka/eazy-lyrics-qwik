@@ -4,7 +4,7 @@ import { BsEnvelope, BsLinkedin } from '@qwikest/icons/bootstrap';
 
 export interface FooterProps {}
 
-export const Footer = component$<FooterProps>((props) => {
+export const Footer = component$<FooterProps>(() => {
   return (
     <footer
       class="flex flex-col gap-4 items-center justify-center w-full p-8 relative"

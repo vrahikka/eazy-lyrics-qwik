@@ -1,5 +1,5 @@
 import { component$ } from '@builder.io/qwik';
-import { SearchHit } from '~/types';
+import type { SearchHit } from '~/types';
 import { Lyriclistitem } from '../LyricListItem/lyriclistitem';
 
 export interface SearchresultsProps {

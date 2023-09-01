@@ -1,5 +1,5 @@
 import { component$, useSignal, $ } from '@builder.io/qwik';
-import { Form, useLocation, useNavigate } from '@builder.io/qwik-city';
+import { useLocation, useNavigate } from '@builder.io/qwik-city';
 import { setRecentSearch } from '~/localStorage';
 
 export const Search = component$(() => {
@@ -28,7 +28,9 @@ export const Search = component$(() => {
           type="text"
           id="search"
           value={inputValue.value}
-          onChange$={(e) => (inputValue.value = e.target.value)}
+          onChange$={(e) => {
+            inputValue.value = e.target.value;
+          }}
           class="flex flex-shrink p-2 rounded text-white w-full bg-black focus:outline-none focus:ring-1 focus:ring-secondary"
           placeholder="Search"
         />

@@ -5,7 +5,14 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ['eslint:recommended', 'prettier', 'airbnb-base', 'plugin:@typescript-eslint/recommended', 'plugin:qwik/recommended', 'eslint-plugin-jsx-a11y'],
+  extends: [
+    'eslint:recommended',
+    'airbnb-base',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:qwik/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:prettier/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     tsconfigRootDir: __dirname,
@@ -34,5 +41,17 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['error'],
     '@typescript-eslint/consistent-type-imports': 'warn',
     '@typescript-eslint/no-unnecessary-condition': 'warn',
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: true,
+        optionalDependencies: false,
+        peerDependencies: false,
+      },
+    ],
+    'import/extensions': 0,
+    'import/no-unresolved': 'off',
+    'import/prefer-default-export': 'off',
+    'no-restricted-globals': 'off',
   },
 };

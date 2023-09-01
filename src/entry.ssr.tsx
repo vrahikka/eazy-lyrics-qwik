@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /**
  * WHAT IS THIS FILE?
  *
@@ -11,9 +12,16 @@
  *
  */
 
+import {
+  renderToStream,
+  type RenderToStreamOptions,
+} from '@builder.io/qwik/server';
+import { manifest } from '@qwik-client-manifest';
+import { isDev } from '@builder.io/qwik/build';
+import Root from './root';
+
 // TEMPORARY FIX TO SUPPRESS WARNINGS WHEN USING ICONS
 // entry.ssr.tsx
-import { isDev } from '@builder.io/qwik/build';
 
 if (isDev) {
   const consoleWarn = console.warn;
@@ -29,13 +37,6 @@ if (isDev) {
       consoleWarn(msg, ...args);
   };
 }
-
-import {
-  renderToStream,
-  type RenderToStreamOptions,
-} from '@builder.io/qwik/server';
-import { manifest } from '@qwik-client-manifest';
-import Root from './root';
 
 export default function (opts: RenderToStreamOptions) {
   return renderToStream(<Root />, {

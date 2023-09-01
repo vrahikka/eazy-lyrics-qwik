@@ -1,8 +1,8 @@
+import { twMerge } from 'tailwind-merge';
 import { component$, $ } from '@builder.io/qwik';
 import { useNavigate } from '@builder.io/qwik-city';
 import { deleteRecentSearch } from '~/localStorage';
 import { Closebutton } from '../CloseButton/closebutton';
-import { twMerge } from 'tailwind-merge';
 
 export interface RecentchipProps {
   value: string;

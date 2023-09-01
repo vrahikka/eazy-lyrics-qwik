@@ -1,8 +1,9 @@
-import { QwikChangeEvent, component$ } from '@builder.io/qwik';
+import type { PropFunction } from '@builder.io/qwik';
+import { component$ } from '@builder.io/qwik';
 import { twMerge } from 'tailwind-merge';
 
 export interface InputfieldProps {
-  onChange: () => void;
+  onChange$: PropFunction<() => void>;
   placeholder: string;
   value: string;
   id: string;
@@ -13,7 +14,7 @@ export interface InputfieldProps {
 
 export const Inputfield = component$<InputfieldProps>(
   ({
-    onChange,
+    onChange$,
     value,
     label,
     placeholder,
@@ -28,7 +29,7 @@ export const Inputfield = component$<InputfieldProps>(
           type={type}
           id={id}
           value={value}
-          onChange$={onChange}
+          onChange$={onChange$}
           class={twMerge(
             'flex flex-shrink p-2 rounded text-white w-full bg-black focus:outline-none focus:ring-1 focus:ring-secondary',
             className,

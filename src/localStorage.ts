@@ -4,7 +4,7 @@ const FAVORITES_KEY = 'favorites';
 const MAX_RECENT_SEARCHES = 20;
 
 export function setRecentSearch(value: string) {
-  if (isClient() && localStorage) {
+  if (isClient()) {
     const raw = localStorage.getItem(FAVORITES_KEY);
     let favorites: string[] = [];
 
@@ -12,7 +12,7 @@ export function setRecentSearch(value: string) {
       favorites = JSON.parse(raw) as string[];
     }
 
-    if (favorites && !favorites.find((fav) => fav === value)) {
+    if (!favorites.find((fav) => fav === value)) {
       if (favorites.length >= MAX_RECENT_SEARCHES) {
         favorites = favorites.slice(0, MAX_RECENT_SEARCHES);
       }
@@ -23,7 +23,7 @@ export function setRecentSearch(value: string) {
 }
 
 export function getRecentSearches() {
-  if (isClient() && localStorage) {
+  if (isClient()) {
     const raw = localStorage.getItem(FAVORITES_KEY);
     if (raw) {
       const favorites = JSON.parse(raw) as string[] | undefined;
@@ -34,7 +34,7 @@ export function getRecentSearches() {
 }
 
 export function deleteRecentSearch(deleteValue: string) {
-  if (isClient() && localStorage) {
+  if (isClient()) {
     const raw = localStorage.getItem(FAVORITES_KEY);
     if (raw) {
       const favorites = JSON.parse(raw) as string[];
