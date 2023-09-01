@@ -21,8 +21,8 @@ export const useSongData = routeLoader$(async (requestEvent) => {
 export default component$(() => {
   const { lyricData, details } = useSongData().value;
 
+  let errorMessage = '';
   if (isError(lyricData) || isError(details)) {
-    let errorMessage = '';
     if (isError(lyricData)) {
       errorMessage = lyricData.errorMessage;
     }
@@ -33,7 +33,11 @@ export default component$(() => {
       errorMessage += details.errorMessage;
     }
 
-    return <Error text={errorMessage} />;
+    return (
+      <PageTemplate>
+        <Error text={errorMessage} />
+      </PageTemplate>
+    );
   }
 
   return (

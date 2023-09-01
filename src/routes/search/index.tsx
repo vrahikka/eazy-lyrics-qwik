@@ -21,6 +21,9 @@ export default component$(() => {
 
   const error = isError(data);
 
+  console.log({ data });
+  console.log({ error });
+
   return (
     <PageTemplate>
       <div class="flex flex-col items-center gap-8">
